@@ -2,8 +2,12 @@ export interface RFC9457Error {
   type?: string;
   title: string;
   status: number;
-  detail: string;
+  detail?: string;
   instance?: string;
+  invalidParams?: Array<{
+    name: string;
+    reason: string;
+  }>;
 }
 
 export interface User {
@@ -12,6 +16,7 @@ export interface User {
   firstName: string;
   lastName: string;
   phone?: string;
+  avatarUrl?: string;
   address?: {
     street: string;
     city: string;
@@ -19,7 +24,7 @@ export interface User {
     zipCode: string;
     country: string;
   };
-  createdAt?: string;
+  createdAt: string;
 }
 
 export interface Category {
@@ -27,8 +32,8 @@ export interface Category {
   name: string;
   slug: string;
   description: string;
-  icon?: string;
-  image?: string;
+  icon: string;
+  image: string;
   itemCount: number;
 }
 
@@ -48,34 +53,21 @@ export interface Product {
   stock: number;
   isNew?: boolean;
   isFeatured?: boolean;
-  tags?: string[];
   specs?: Record<string, string>;
-}
-
-export interface ProductsResponse {
-  content: Product[];
-  totalElements: number;
-  totalPages: number;
-  page: number;
-  size: number;
+  tags?: string[];
 }
 
 export interface CartItem {
   id: string;
-  productId: string;
   product: Product;
   quantity: number;
-  unitPrice: number;
-  totalPrice: number;
 }
 
 export interface Cart {
   items: CartItem[];
-  subtotal: number;
-  shipping: number;
-  discount: number;
-  total: number;
   totalItems: number;
+  totalAmount: number;
+  currency: string;
 }
 
 export type OrderStatus = 'pending' | 'processing' | 'shipped' | 'delivered' | 'cancelled';
@@ -89,31 +81,27 @@ export interface OrderItem {
   totalPrice: number;
 }
 
-export interface ShippingAddress {
-  fullName: string;
-  addressLine1: string;
-  addressLine2?: string;
-  city: string;
-  state: string;
-  zipCode: string;
-  country: string;
-  phone: string;
-}
-
-export interface PaymentDetails {
-  method: 'credit_card' | 'bank_transfer' | 'cash_on_delivery';
-  cardLastFour?: string;
-  cardHolderName?: string;
-}
-
 export interface Order {
   id: string;
   userId: string;
   orderNumber: string;
   items: OrderItem[];
   status: OrderStatus;
-  shippingAddress: ShippingAddress;
-  paymentDetails: PaymentDetails;
+  shippingAddress: {
+    fullName: string;
+    addressLine1: string;
+    addressLine2?: string;
+    city: string;
+    state: string;
+    zipCode: string;
+    country: string;
+    phone: string;
+  };
+  paymentDetails: {
+    method: 'credit_card' | 'bank_transfer' | 'cash_on_delivery' | string;
+    cardLastFour?: string;
+    cardHolderName?: string;
+  };
   subtotal: number;
   shippingFee: number;
   discount: number;
@@ -125,17 +113,16 @@ export interface Order {
 }
 
 export interface AuthResponse {
+  user: User;
   accessToken: string;
   refreshToken: string;
-  user: User;
 }
 
-export interface ProductFilterParams {
-  page?: number;
-  size?: number;
-  category?: string;
-  q?: string;
-  minPrice?: number;
-  maxPrice?: number;
-  sort?: 'featured' | 'price_asc' | 'price_desc' | 'rating' | 'newest';
+export interface PaginatedResponse<T> {
+  content: T[];
+  page: number;
+  size: number;
+  totalElements: number;
+  totalPages: number;
+  isLast: boolean;
 }

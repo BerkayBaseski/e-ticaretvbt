@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ShoppingBag, Search, User as UserIcon, LogOut, Package, Heart, Bell, ChevronDown, Menu, X, Tag } from 'lucide-react';
-import { useAuthStore } from '../../stores/authStore';
-import { useCartStore } from '../../stores/cartStore';
-import { useWishlistStore } from '../../stores/wishlistStore';
+import { useAuthStore } from '../../../entities/auth/model/authStore';
+import { useCartStore } from '../../../entities/cart/model/cartStore';
+import { useWishlistStore } from '../../../entities/wishlist/model/wishlistStore';
 import { ThemeToggle } from './ThemeToggle';
-import { Button } from '../ui/Button';
+import { Button } from '../../../shared/ui/Button';
 
 export const Header: React.FC = () => {
   const navigate = useNavigate();
@@ -33,16 +33,22 @@ export const Header: React.FC = () => {
     { id: 2, title: 'Kargo Bildirimi', text: 'Siparişiniz kargoya verilmek üzere hazırlandı.', time: '2 saat önce' },
   ];
 
-  const handleSearch = (e: React.FormEvent) => {
+  const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (searchQuery.trim()) {
       navigate(`/search?q=${encodeURIComponent(searchQuery.trim())}`);
       setIsMobileMenuOpen(false);
+    } else {
+      window.dispatchEvent(new Event('command-palette:open'));
     }
   };
 
+  const openCommandPalette = () => {
+    window.dispatchEvent(new Event('command-palette:open'));
+  };
+
   return (
-    <header className="sticky top-0 z-40 w-full border-b border-[#1F2937] bg-[#030712]/80 backdrop-blur-xl transition-all">
+    <header className="sticky top-0 z-40 w-full border-b border-[#1F2937] bg-[#030712]/85 backdrop-blur-xl transition-all">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 gap-4">
           {/* Brand Logo & Category Dropdown */}
@@ -103,17 +109,27 @@ export const Header: React.FC = () => {
             </div>
           </div>
 
-          {/* Search Bar - Desktop */}
-          <form onSubmit={handleSearch} className="hidden md:flex flex-1 max-w-md mx-2">
-            <div className="relative w-full">
+          {/* Search Bar & Command Palette Trigger - Desktop */}
+          <form onSubmit={handleSearchSubmit} className="hidden md:flex flex-1 max-w-md mx-2">
+            <div className="relative w-full flex items-center">
               <input
                 type="text"
-                placeholder="Premium ürün, marka veya model ara..."
+                placeholder="Arama yapın veya Komut Paletini açın..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full h-10 pl-10 pr-4 bg-[#111827]/70 border border-[#1F2937] rounded-full text-xs text-[#F8FAFC] placeholder:text-[#CBD5E1]/60 focus:outline-none focus:ring-2 focus:ring-[#2563EB] focus:bg-[#111827] transition-all"
+                onClick={openCommandPalette}
+                className="w-full h-10 pl-10 pr-24 bg-[#111827]/80 border border-[#1F2937] rounded-full text-xs text-[#F8FAFC] placeholder:text-[#CBD5E1]/60 focus:outline-none focus:ring-2 focus:ring-[#2563EB] focus:bg-[#111827] transition-all cursor-pointer"
               />
-              <Search className="absolute left-3.5 top-3 w-4 h-4 text-[#CBD5E1]/60 pointer-events-none" />
+              <Search className="absolute left-3.5 top-3 w-4 h-4 text-[#3B82F6] pointer-events-none" />
+              <button
+                type="button"
+                onClick={openCommandPalette}
+                className="absolute right-2.5 flex items-center gap-1 px-2.5 py-1 rounded-full bg-[#1E293B] border border-[#334155] text-[10px] font-mono font-bold text-[#94A3B8] hover:text-white hover:bg-[#334155] transition-all"
+              >
+                <span>CTRL</span>
+                <span className="text-[#3B82F6]">+</span>
+                <span>K</span>
+              </button>
             </div>
           </form>
 
@@ -301,7 +317,7 @@ export const Header: React.FC = () => {
         {/* Mobile Dropdown */}
         {isMobileMenuOpen && (
           <div className="lg:hidden py-4 border-t border-[#1F2937] space-y-4">
-            <form onSubmit={handleSearch}>
+            <form onSubmit={handleSearchSubmit}>
               <div className="relative w-full">
                 <input
                   type="text"

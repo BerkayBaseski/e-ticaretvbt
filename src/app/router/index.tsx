@@ -1,40 +1,39 @@
 import React from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
-import { LayoutContainer } from '../components/layout/LayoutContainer';
-import { ProtectedRoute } from '../features/auth/ProtectedRoute';
-import { CommandPalette } from '../components/ui/CommandPalette';
+import { LayoutContainer } from '../layouts/LayoutContainer';
+import { ProtectedRoute } from './ProtectedRoute';
+import { CommandPalette } from '../../widgets/command-palette/ui/CommandPalette';
 
-// Feature Pages
-import { HomePage } from '../features/products/HomePage';
-import { SearchPage } from '../features/products/SearchPage';
-import { ProductDetailPage } from '../features/products/ProductDetailPage';
-import { CartPage } from '../features/cart/CartPage';
-import { WishlistPage } from '../features/products/WishlistPage';
-import { ComparePage } from '../features/products/ComparePage';
-import { CheckoutPage } from '../features/checkout/CheckoutPage';
-import { OrderConfirmationPage } from '../features/orders/OrderConfirmationPage';
-import { OrdersListPage } from '../features/orders/OrdersListPage';
-import { OrderDetailPage } from '../features/orders/OrderDetailPage';
-import { LoginPage } from '../features/auth/LoginPage';
-import { RegisterPage } from '../features/auth/RegisterPage';
-import { ProfilePage } from '../features/profile/ProfilePage';
-import { NotificationsPage } from '../pages/notifications/ui/NotificationsPage';
-
-import { FAQPage } from '../pages/FAQPage';
-import { ContactPage } from '../pages/ContactPage';
-import { NotFoundPage } from '../pages/NotFoundPage';
+// Customer Pages
+import { HomePage } from '../../pages/home/ui/HomePage';
+import { SearchPage } from '../../pages/search/ui/SearchPage';
+import { ProductDetailPage } from '../../pages/product-detail/ui/ProductDetailPage';
+import { CartPage } from '../../pages/cart/ui/CartPage';
+import { WishlistPage } from '../../pages/wishlist/ui/WishlistPage';
+import { NotificationsPage } from '../../pages/notifications/ui/NotificationsPage';
+import { ComparePage } from '../../pages/compare/ui/ComparePage';
+import { CheckoutPage } from '../../pages/checkout/ui/CheckoutPage';
+import { OrderConfirmationPage } from '../../pages/orders/ui/OrderConfirmationPage';
+import { OrdersListPage } from '../../pages/orders/ui/OrdersListPage';
+import { OrderDetailPage } from '../../pages/orders/ui/OrderDetailPage';
+import { LoginPage } from '../../pages/auth/ui/LoginPage';
+import { RegisterPage } from '../../pages/auth/ui/RegisterPage';
+import { ProfilePage } from '../../pages/profile/ui/ProfilePage';
+import { NotFoundPage } from '../../pages/not-found/ui/NotFoundPage';
+import { FAQPage } from '../../pages/faq/ui/FAQPage';
+import { ContactPage } from '../../pages/contact/ui/ContactPage';
 
 // Admin Pages
-import { AdminDashboardLayout } from '../pages/admin/ui/AdminDashboardLayout';
-import { AdminAnalyticsPage } from '../pages/admin/ui/AdminAnalyticsPage';
+import { AdminDashboardLayout } from '../../pages/admin/ui/AdminDashboardLayout';
+import { AdminAnalyticsPage } from '../../pages/admin/ui/AdminAnalyticsPage';
 
-// Seller Portal Pages
-import { SellerDashboardPage } from '../pages/seller/ui/SellerDashboardPage';
-import { SellerProductsPage } from '../pages/seller/ui/SellerProductsPage';
-import { SellerAddProductPage } from '../pages/seller/ui/SellerAddProductPage';
-import { SellerOrdersPage } from '../pages/seller/ui/SellerOrdersPage';
-import { SellerReviewsPage } from '../pages/seller/ui/SellerReviewsPage';
-import { SellerSettingsPage } from '../pages/seller/ui/SellerSettingsPage';
+// Seller Portal Pages (Shopify Seller Center Experience)
+import { SellerDashboardPage } from '../../pages/seller/ui/SellerDashboardPage';
+import { SellerProductsPage } from '../../pages/seller/ui/SellerProductsPage';
+import { SellerAddProductPage } from '../../pages/seller/ui/SellerAddProductPage';
+import { SellerOrdersPage } from '../../pages/seller/ui/SellerOrdersPage';
+import { SellerReviewsPage } from '../../pages/seller/ui/SellerReviewsPage';
+import { SellerSettingsPage } from '../../pages/seller/ui/SellerSettingsPage';
 
 export const AppRoutes: React.FC = () => {
   const location = useLocation();

@@ -174,7 +174,7 @@ export const handlers = [
         !query ||
         p.name.toLowerCase().includes(query) ||
         p.description.toLowerCase().includes(query) ||
-        p.tags.some((t) => t.toLowerCase().includes(query));
+        (p.tags || []).some((t) => t.toLowerCase().includes(query));
       const matchPrice = p.price >= minPrice && p.price <= maxPrice;
       return matchCategory && matchQuery && matchPrice;
     });
