@@ -1,65 +1,53 @@
-# Modern E-Ticaret Frontend (Vite + React + TypeScript)
+# E-Ticaret Luxury Monorepo Structure
 
-Bu proje, uçtan uca mock API destekli, performanslı, erişilebilir ve modern bir e-ticaret web uygulaması frontend'idir.
+Bu proje, net **Frontend** ve **Backend** mimari ayrımına sahip modern bir e-ticaret uygulamasıdır.
+
+```
+/
+├── frontend/             # Aktif Frontend Uygulaması (Vite + React 19 + TypeScript + Tailwind)
+│   ├── src/              # Uygulama kaynak kodları & FSD mimarisi
+│   ├── public/           # Statik varlıklar & MSW mock worker
+│   ├── package.json      # Frontend bağımlılıkları & derleme komutları
+│   └── tsconfig.json     # TypeScript konfigürasyonu
+│
+├── backend/              # Gelecekteki Backend geliştirmeleri için ayrılmış alan
+│   └── README.md         # Backend entegrasyon ve kılavuz dokümanı
+│
+├── docs/                 # Mimari dokümantasyon
+│   └── ARCHITECTURE.md
+│
+├── README.md             # Ana proje dokümantasyonu
+└── .gitignore            # Git dışlama kuralları
+```
 
 ---
 
-## 🛠️ Kurulum Adımları
+## 🛠️ Hızlı Başlangıç
 
-1. **Bağımlılıkları Kurun**:
+Proje kök dizininden komut çalıştırarak uygulamayı başlatabilirsiniz:
+
+1. **Bağımlılıkları Kurun (Frontend)**:
    ```bash
-   npm install
+   npm --prefix frontend install
    ```
 
-2. **Çevre Değişkenlerini Ayarlayın**:
-   `.env.example` dosyasını kopyalayarak `.env` oluşturun:
-   ```bash
-   cp .env.example .env
-   ```
-
-3. **Geliştirme Sunucusunu Başlatın**:
+2. **Geliştirme Sunucusunu Başlatın**:
    ```bash
    npm run dev
    ```
 
-4. **Production Build Alın**:
+3. **Production Build Alın**:
    ```bash
    npm run build
    ```
 
 ---
 
-## 🏗️ Teknoloji Seçim Gerekçesi & Mimarı Açıklaması
+## 🏗️ Mimari Özellikler
 
-- **Vite + React 18 + TypeScript (Strict Mode)**: Hızlı HMR (Hot Module Replacement), derleme performansı ve tip güvenliğini maksimuma çıkarmak için tercih edildi.
-- **TanStack Query v5 + Zustand**: Sunucu durumu (server state), önbellekleme ve optimistic UI güncellemeleri için TanStack Query; oturum (auth) ve sepet (cart) gibi istemci durumları (client state) için ise minimal Zustand mağazaları kuruldu.
-- **Tailwind CSS + Custom Component Kütüphanesi**: Hızlı, responsive ve Light/Dark tema token'larına tam uyumlu modüler bileşenler (Button, Input, Card, Badge, Skeleton, Toast, EmptyState) geliştirildi.
-- **MSW (Mock Service Worker v2)**: Backend henüz hazır değilken gerçek HTTP isteklerini tarayıcı seviyesinde intercept ederek RFC 9457 Problem Details hata standartları ile uçtan uca entegrasyon sağlandı.
+- **Temiz Müşteri-Sunucu Ayrımı:** Sadece `/frontend` dizini aktif olarak geliştirilmekte, `/backend` dizisi gelecekteki servis entegrasyonları için ayrılmıştır.
+- **Vite + React 19 + TypeScript**: Yüksek performanslı modüler frontend yapısı.
+- **MSW (Mock Service Worker v2)**: Backend servisleri olmadan API katmanını tarayıcı seviyesinde simüle eden katman.
+- **Geleceğe Hazır API Katmanı:** `.env` dosyasında `VITE_API_BASE_URL` değiştirilerek sıfır kod değişikliği ile gerçek backend servisine bağlanabilir.
 
----
-
-## 🔌 Mock API'den Gerçek Backend API'sine Geçiş Rehberi
-
-MSW Mock servisinden gerçek üretim/geliştirme backend servisine geçmek tek bir konfigürasyon adımı kadardır:
-
-1. `.env` dosyanızdaki `VITE_API_BASE_URL` adresini gerçek backend URL'iniz ile güncelleyin:
-   ```env
-   VITE_API_BASE_URL=https://api.gercekbackend.com/v1
-   VITE_USE_MOCK_API=false
-   ```
-2. Uygulama otomatik olarak MSW interceptor'ünü devre dışı bırakacak ve tüm Axios istekleri doğrudan belirtilen `VITE_API_BASE_URL` adresine yönlendirilecektir.
-
----
-
-## 📱 Sayfalar & Ekran Görüntüleri
-
-| Sayfa | Açıklama | Ekran Görüntüsü (Placeholder) |
-|---|---|---|
-| **Ana Sayfa (`/`)** | Banner, Kategori çipleri, öne çıkan ürünler grid'i | `![Ana Sayfa Mockup](https://via.placeholder.com/800x450?text=Ana+Sayfa+Mockup)` |
-| **Arama / Filtre (`/search`)** | Kategori, fiyat aralığı, sıralama ve pagination | `![Arama Sayfası Mockup](https://via.placeholder.com/800x450?text=Arama+Sayfasi+Mockup)` |
-| **Ürün Detay (`/products/:id`)** | Görsel galeri, stok, adet seçici, benzer ürünler | `![Urun Detay Mockup](https://via.placeholder.com/800x450?text=Urun+Detay+Mockup)` |
-| **Sepet (`/cart`)** | Ürün listesi, adet değişimi, sipariş özeti | `![Sepet Mockup](https://via.placeholder.com/800x450?text=Sepet+Mockup)` |
-| **Checkout (`/checkout`)** | Adres ve ödeme simülasyon formu (Korumalı) | `![Checkout Mockup](https://via.placeholder.com/800x450?text=Checkout+Mockup)` |
-| **Sipariş Onayı (`/order-confirmation/:id`)** | Başarı mesajı & sipariş dökümü | `![Order Confirmation Mockup](https://via.placeholder.com/800x450?text=Order+Confirmation)` |
-| **Sipariş Geçmişi (`/orders`)** | Sipariş listesi ve durum etiketleri (Korumalı) | `![Siparislerim Mockup](https://via.placeholder.com/800x450?text=Siparislerim+Mockup)` |
-| **Profil (`/profile`)** | Kullanıcı bilgisi ve adres güncelleme (Korumalı) | `![Profil Mockup](https://via.placeholder.com/800x450?text=Profil+Mockup)` |
+Detaylı mimari doküman için [`/docs/ARCHITECTURE.md`](file:///c:/Users/bbase/OneDrive/Documents/GitHub/e-ticaretvbt/e-ticaretvbt/docs/ARCHITECTURE.md) dosyasını inceleyebilirsiniz.
