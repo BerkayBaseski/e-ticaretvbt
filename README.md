@@ -1,65 +1,130 @@
-# Modern E-Ticaret Frontend (Vite + React + TypeScript)
+# Modern E-Ticaret Projesi
 
-Bu proje, uçtan uca mock API destekli, performanslı, erişilebilir ve modern bir e-ticaret web uygulaması frontend'idir.
+Bu proje, modern teknolojiler kullanılarak geliştirilen tam yığın (Full Stack) bir e-ticaret uygulamasıdır. Frontend tarafında React ve TypeScript, backend tarafında ise Java ve Spring Boot kullanılmaktadır. Geliştirme sürecinde frontend ve backend ekipleri eş zamanlı çalışarak RESTful API üzerinden haberleşmektedir.
 
 ---
 
+# 🎨 Frontend (Vite + React + TypeScript)
+
+Frontend tarafı, performanslı, erişilebilir ve modern bir kullanıcı deneyimi sunacak şekilde geliştirilmiştir.
+
 ## 🛠️ Kurulum Adımları
 
-1. **Bağımlılıkları Kurun**:
+1. **Bağımlılıkları Kurun**
    ```bash
    npm install
    ```
 
-2. **Çevre Değişkenlerini Ayarlayın**:
-   `.env.example` dosyasını kopyalayarak `.env` oluşturun:
+2. **Çevre Değişkenlerini Ayarlayın**
+
+   `.env.example` dosyasını kopyalayarak `.env` oluşturun.
+
    ```bash
    cp .env.example .env
    ```
 
-3. **Geliştirme Sunucusunu Başlatın**:
+3. **Geliştirme Sunucusunu Başlatın**
+
    ```bash
    npm run dev
    ```
 
-4. **Production Build Alın**:
+4. **Production Build Alın**
+
    ```bash
    npm run build
    ```
 
 ---
 
-## 🏗️ Teknoloji Seçim Gerekçesi & Mimarı Açıklaması
+## 🏗️ Frontend Teknolojileri
 
-- **Vite + React 18 + TypeScript (Strict Mode)**: Hızlı HMR (Hot Module Replacement), derleme performansı ve tip güvenliğini maksimuma çıkarmak için tercih edildi.
-- **TanStack Query v5 + Zustand**: Sunucu durumu (server state), önbellekleme ve optimistic UI güncellemeleri için TanStack Query; oturum (auth) ve sepet (cart) gibi istemci durumları (client state) için ise minimal Zustand mağazaları kuruldu.
-- **Tailwind CSS + Custom Component Kütüphanesi**: Hızlı, responsive ve Light/Dark tema token'larına tam uyumlu modüler bileşenler (Button, Input, Card, Badge, Skeleton, Toast, EmptyState) geliştirildi.
-- **MSW (Mock Service Worker v2)**: Backend henüz hazır değilken gerçek HTTP isteklerini tarayıcı seviyesinde intercept ederek RFC 9457 Problem Details hata standartları ile uçtan uca entegrasyon sağlandı.
-
----
-
-## 🔌 Mock API'den Gerçek Backend API'sine Geçiş Rehberi
-
-MSW Mock servisinden gerçek üretim/geliştirme backend servisine geçmek tek bir konfigürasyon adımı kadardır:
-
-1. `.env` dosyanızdaki `VITE_API_BASE_URL` adresini gerçek backend URL'iniz ile güncelleyin:
-   ```env
-   VITE_API_BASE_URL=https://api.gercekbackend.com/v1
-   VITE_USE_MOCK_API=false
-   ```
-2. Uygulama otomatik olarak MSW interceptor'ünü devre dışı bırakacak ve tüm Axios istekleri doğrudan belirtilen `VITE_API_BASE_URL` adresine yönlendirilecektir.
+- **Vite + React 18 + TypeScript (Strict Mode)**: Hızlı geliştirme süreci, yüksek performans ve tip güvenliği sağlar.
+- **TanStack Query v5 + Zustand**: Sunucu verilerinin yönetimi, önbellekleme ve istemci durum yönetimi için kullanılır.
+- **Tailwind CSS + Custom Component Library**: Responsive ve yeniden kullanılabilir arayüz bileşenleri oluşturulmuştur.
+- **MSW (Mock Service Worker v2)**: Backend geliştirme süreci tamamlanana kadar gerçek API davranışını simüle etmek amacıyla kullanılır.
 
 ---
 
-## 📱 Sayfalar & Ekran Görüntüleri
+# ☕ Backend (Java + Spring Boot)
 
-| Sayfa | Açıklama | Ekran Görüntüsü (Placeholder) |
-|---|---|---|
-| **Ana Sayfa (`/`)** | Banner, Kategori çipleri, öne çıkan ürünler grid'i | `![Ana Sayfa Mockup](https://via.placeholder.com/800x450?text=Ana+Sayfa+Mockup)` |
-| **Arama / Filtre (`/search`)** | Kategori, fiyat aralığı, sıralama ve pagination | `![Arama Sayfası Mockup](https://via.placeholder.com/800x450?text=Arama+Sayfasi+Mockup)` |
-| **Ürün Detay (`/products/:id`)** | Görsel galeri, stok, adet seçici, benzer ürünler | `![Urun Detay Mockup](https://via.placeholder.com/800x450?text=Urun+Detay+Mockup)` |
-| **Sepet (`/cart`)** | Ürün listesi, adet değişimi, sipariş özeti | `![Sepet Mockup](https://via.placeholder.com/800x450?text=Sepet+Mockup)` |
-| **Checkout (`/checkout`)** | Adres ve ödeme simülasyon formu (Korumalı) | `![Checkout Mockup](https://via.placeholder.com/800x450?text=Checkout+Mockup)` |
-| **Sipariş Onayı (`/order-confirmation/:id`)** | Başarı mesajı & sipariş dökümü | `![Order Confirmation Mockup](https://via.placeholder.com/800x450?text=Order+Confirmation)` |
-| **Sipariş Geçmişi (`/orders`)** | Sipariş listesi ve durum etiketleri (Korumalı) | `![Siparislerim Mockup](https://via.placeholder.com/800x450?text=Siparislerim+Mockup)` |
-| **Profil (`/profile`)** | Kullanıcı bilgisi ve adres güncelleme (Korumalı) | `![Profil Mockup](https://via.placeholder.com/800x450?text=Profil+Mockup)` |
+Backend tarafı Java ve Spring Boot kullanılarak RESTful API mimarisi ile geliştirilmektedir. Uygulamanın iş kuralları, veritabanı işlemleri, kimlik doğrulama ve yetkilendirme süreçleri bu katmanda yönetilmektedir.
+
+## 🛠️ Kullanılan Teknolojiler
+
+- Java 21
+- Spring Boot
+- Spring Web
+- Spring Data JPA (Hibernate)
+- PostgreSQL
+- Maven
+- Lombok
+- Spring Validation
+- Spring Security
+- JWT Authentication
+- Swagger (OpenAPI)
+- Git & GitHub
+
+---
+
+## 🏗️ Backend Mimarisi
+
+Katmanlı (Layered) mimari kullanılmaktadır.
+
+```text
+Controller
+    ↓
+Service
+    ↓
+Repository
+    ↓
+PostgreSQL
+```
+
+Bu yapı sayesinde kodun okunabilirliği, sürdürülebilirliği ve test edilebilirliği artırılmaktadır.
+
+---
+
+## ⚙️ Backend Özellikleri
+
+- RESTful API
+- JWT ile Kimlik Doğrulama (Authentication)
+- Rol Bazlı Yetkilendirme (User / Admin)
+- Ürün Yönetimi
+- Kategori Yönetimi
+- Sepet Yönetimi
+- Favoriler (Wishlist)
+- Sipariş Yönetimi
+- Kullanıcı Profil Yönetimi
+- Veri Doğrulama (Validation)
+- Global Exception Handling
+
+---
+
+## 🔌 Mock API'den Gerçek Backend API'sine Geçiş
+
+Frontend geliştirme sürecinde kullanılan MSW Mock API, backend tamamlandıktan sonra kolayca gerçek API'ye yönlendirilebilir.
+
+`.env` dosyasında aşağıdaki ayarlar güncellenmelidir:
+
+```env
+VITE_API_BASE_URL=https://api.gercekbackend.com/v1
+VITE_USE_MOCK_API=false
+```
+
+Bu değişiklik sonrasında uygulama, tüm HTTP isteklerini Spring Boot backend servisine yönlendirecektir.
+
+---
+
+## 📱 Sayfalar
+
+| Sayfa | Açıklama |
+|---|---|
+| **Ana Sayfa (`/`)** | Banner, kategoriler ve öne çıkan ürünler |
+| **Arama / Filtre (`/search`)** | Ürün arama, filtreleme ve sıralama |
+| **Ürün Detay (`/products/:id`)** | Ürün bilgileri, görseller ve benzer ürünler |
+| **Sepet (`/cart`)** | Sepet yönetimi ve sipariş özeti |
+| **Checkout (`/checkout`)** | Adres ve ödeme işlemleri |
+| **Sipariş Onayı (`/order-confirmation/:id`)** | Sipariş başarı ekranı |
+| **Sipariş Geçmişi (`/orders`)** | Kullanıcının geçmiş siparişleri |
+| **Profil (`/profile`)** | Kullanıcı bilgileri ve adres yönetimi |
