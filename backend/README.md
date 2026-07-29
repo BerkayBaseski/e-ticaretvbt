@@ -1,69 +1,98 @@
-# Backend Architecture & Database Foundation
+# Backend Architecture
 
-This directory represents the **Enterprise-Grade Backend & Database Architectural Blueprint**.
-
-> [!NOTE]
-> - All executable backend logic, API server endpoints, database connections, and ORM code are omitted to keep the implementation focus 100% on the frontend application.
-> - This directory serves as a complete structural specification for future backend development teams.
+This directory contains the backend source code of the e-commerce application built with **Java** and **Spring Boot**.
 
 ---
 
-## 🏛️ Directory Architecture
+## 🏛️ Project Structure
 
 ```text
 backend/
 ├── src/
-│   ├── config/               # Environment & configuration loaders
-│   ├── controllers/          # HTTP request handlers
-│   ├── services/             # Core business logic layer
-│   ├── repositories/         # Database access layer (Repository Pattern)
-│   ├── routes/               # REST API route definitions
-│   ├── middlewares/          # Security, Auth Guards & Error Pipeline
-│   ├── models/               # Data model entities
-│   ├── dto/                  # Data Transfer Objects (Payload Contracts)
-│   ├── validators/           # Schema validation pipes (Zod)
-│   ├── interfaces/           # TypeScript Interfaces
-│   ├── types/                # Domain type definitions
-│   ├── utils/                # Utility helpers
-│   ├── constants/            # Global constants & enums
-│   ├── exceptions/           # Centralized RFC 9457 exceptions
-│   │
-│   ├── database/
-│   │   ├── schema/           # DATABASE_SCHEMA.md (3NF Specifications)
-│   │   ├── migrations/       # Database migration placeholders
-│   │   ├── seeds/            # Initial seed data placeholders
-│   │   └── diagrams/         # ERD.md (Mermaid Entity Relationship Diagram)
-│   │
-│   ├── modules/              # Domain-Driven Modules
-│   │   ├── auth/             # Authentication & JWT management
-│   │   ├── users/            # Customer profile management
-│   │   ├── sellers/          # Merchant store portal
-│   │   ├── products/         # Catalog & inventory management
-│   │   ├── categories/       # Category hierarchy
-│   │   ├── orders/           # Order placement & fulfillment
-│   │   ├── wishlist/         # Saved items
-│   │   ├── reviews/          # Ratings & product reviews
-│   │   └── notifications/    # Push notifications & alerts
-│   │
-│   └── app.ts                # Application blueprint entry point
+│   ├── main/
+│   │   ├── java/
+│   │   │   └── com/
+│   │   │       └── eticaret/
+│   │   │           └── backend/
+│   │   │               ├── config/
+│   │   │               ├── common/
+│   │   │               ├── exception/
+│   │   │               ├── security/
+│   │   │               └── modules/
+│   │   │                   ├── auth/
+│   │   │                   ├── user/
+│   │   │                   ├── category/
+│   │   │                   ├── product/
+│   │   │                   ├── cart/
+│   │   │                   ├── order/
+│   │   │                   ├── wishlist/
+│   │   │                   └── review/
+│   │   └── resources/
+│   │       ├── application.properties
+│   │       └── static/
+│   └── test/
 │
-├── docs/                     # Additional backend documentation
-├── tests/                    # Test suite placeholders
-├── package.json              # Backend package declaration
-├── tsconfig.json             # TypeScript compiler settings
-└── .env.example              # Environment variables template
+├── pom.xml
+├── mvnw
+├── mvnw.cmd
+└── README.md
 ```
 
 ---
 
-## 🗄️ Database Architecture Highlights
+## 🚀 Backend Technologies
 
-The database architecture is fully documented under [`/src/database/`](file:///c:/Users/bbase/OneDrive/Documents/GitHub/e-ticaretvbt/e-ticaretvbt/backend/src/database):
+The backend is developed using the following technologies:
 
-1. **[Entity Relationship Diagram (ERD.md)](file:///c:/Users/bbase/OneDrive/Documents/GitHub/e-ticaretvbt/e-ticaretvbt/backend/src/database/diagrams/ERD.md):** Rendered in Mermaid standard, mapping relationships across all 13 core domain entities:
-   - `USERS`, `SELLERS`, `PRODUCTS`, `CATEGORIES`, `PRODUCT_IMAGES`, `INVENTORY`, `ORDERS`, `ORDER_ITEMS`, `WISHLISTS`, `REVIEWS`, `ADDRESSES`, `PAYMENTS`, `NOTIFICATIONS`.
+- Java 21
+- Spring Boot 4.0.7
+- Spring Web
+- Spring Data JPA
+- Spring Security
+- Jakarta Validation
+- PostgreSQL
+- Lombok
+- Maven
+- Git & GitHub
 
-2. **[Schema Specifications (DATABASE_SCHEMA.md)](file:///c:/Users/bbase/OneDrive/Documents/GitHub/e-ticaretvbt/e-ticaretvbt/backend/src/database/schema/DATABASE_SCHEMA.md):**
-   - Normalized according to **3NF (Third Normal Form)** rules.
-   - Primary Keys (`UUID`), Foreign Keys, Nullability, and `CHECK` constraints.
-   - Indexing strategy recommendations (B-Tree, Compound, and Unique indexes) for high throughput query performance.
+---
+
+## 📦 Backend Modules
+
+The application is divided into feature-based modules:
+
+- Authentication
+- User Management
+- Category Management
+- Product Management
+- Shopping Cart
+- Order & Checkout
+- Wishlist
+- Review
+
+---
+
+## 🗄️ Database
+
+The application uses **PostgreSQL** as its relational database.
+
+Main entities include:
+
+- Users
+- Categories
+- Products
+- Cart
+- Orders
+- Wishlist
+- Reviews
+
+Entity relationships and database design will be documented as the project progresses.
+
+---
+
+## 📌 Notes
+
+- The project follows a modular architecture.
+- Spring Security and JWT will be used for authentication and authorization.
+- RESTful API principles will be followed.
+- Backend and frontend are developed independently and integrated through REST APIs.
