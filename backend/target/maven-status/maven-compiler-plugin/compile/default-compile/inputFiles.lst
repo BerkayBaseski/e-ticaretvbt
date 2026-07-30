@@ -1,5 +1,17 @@
 /workspaces/e-ticaretvbt/backend/src/main/java/com/eticaret/backend/BackendApplication.java
+/workspaces/e-ticaretvbt/backend/src/main/java/com/eticaret/backend/modules/cart/CartController.java
+/workspaces/e-ticaretvbt/backend/src/main/java/com/eticaret/backend/modules/cart/CartItem.java
+/workspaces/e-ticaretvbt/backend/src/main/java/com/eticaret/backend/modules/cart/CartItemRepository.java
+/workspaces/e-ticaretvbt/backend/src/main/java/com/eticaret/backend/modules/cart/CartService.java
+/workspaces/e-ticaretvbt/backend/src/main/java/com/eticaret/backend/modules/order/Order.java
+/workspaces/e-ticaretvbt/backend/src/main/java/com/eticaret/backend/modules/order/OrderController.java
+/workspaces/e-ticaretvbt/backend/src/main/java/com/eticaret/backend/modules/order/OrderRepository.java
+/workspaces/e-ticaretvbt/backend/src/main/java/com/eticaret/backend/modules/order/OrderService.java
 /workspaces/e-ticaretvbt/backend/src/main/java/com/eticaret/backend/modules/product/Product.java
 /workspaces/e-ticaretvbt/backend/src/main/java/com/eticaret/backend/modules/product/ProductController.java
 /workspaces/e-ticaretvbt/backend/src/main/java/com/eticaret/backend/modules/product/ProductRepository.java
 /workspaces/e-ticaretvbt/backend/src/main/java/com/eticaret/backend/modules/product/ProductService.java
+/workspaces/e-ticaretvbt/backend/src/main/java/com/eticaret/backend/modules/review/Review.java
+/workspaces/e-ticaretvbt/backend/src/main/java/com/eticaret/backend/modules/review/ReviewController.java
+/workspaces/e-ticaretvbt/backend/src/main/java/com/eticaret/backend/modules/review/ReviewRepository.java
+/workspaces/e-ticaretvbt/backend/src/main/java/com/eticaret/backend/modules/review/ReviewService.java
