@@ -1,0 +1,5 @@
+com/eticaret/backend/modules/product/ProductController.class
+com/eticaret/backend/modules/product/ProductRepository.class
+com/eticaret/backend/BackendApplication.class
+com/eticaret/backend/modules/product/ProductService.class
+com/eticaret/backend/modules/product/Product.class

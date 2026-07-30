@@ -1,0 +1,5 @@
+/workspaces/e-ticaretvbt/backend/src/main/java/com/eticaret/backend/BackendApplication.java
+/workspaces/e-ticaretvbt/backend/src/main/java/com/eticaret/backend/modules/product/Product.java
+/workspaces/e-ticaretvbt/backend/src/main/java/com/eticaret/backend/modules/product/ProductController.java
+/workspaces/e-ticaretvbt/backend/src/main/java/com/eticaret/backend/modules/product/ProductRepository.java
+/workspaces/e-ticaretvbt/backend/src/main/java/com/eticaret/backend/modules/product/ProductService.java
