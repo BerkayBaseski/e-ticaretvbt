@@ -5,7 +5,6 @@ import { ShoppingBag, Search, User as UserIcon, LogOut, Package, Heart, Bell, Ch
 import { useAuthStore } from '../../../entities/auth/model/authStore';
 import { useCartStore } from '../../../entities/cart/model/cartStore';
 import { useWishlistStore } from '../../../entities/wishlist/model/wishlistStore';
-import { ThemeToggle } from './ThemeToggle';
 import { Button } from '../../../shared/ui/Button';
 
 export const Header: React.FC = () => {
@@ -135,8 +134,6 @@ export const Header: React.FC = () => {
 
           {/* Right Action Icons */}
           <div className="flex items-center gap-1.5 sm:gap-3">
-            <ThemeToggle />
-
             {/* Notification Icon */}
             <div className="relative">
               <button

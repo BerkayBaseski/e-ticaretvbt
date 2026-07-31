@@ -1,46 +1,108 @@
 package com.eticaret.backend.modules.product;
 
 import jakarta.persistence.*;
+import lombok.*;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 @Entity
 @Table(name = "products")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Product {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
 
+    @Column(nullable = false)
     private String name;
+
+    @Column(nullable = false, unique = true)
+    private String slug;
+
+    @Column(length = 3000)
     private String description;
+
+    @Column(nullable = false)
     private Double price;
-    private Integer stock;
-    private String imageUrl;
 
-    public Product() {}
+    private Double originalPrice;
 
-    public Product(String name, String description, Double price, Integer stock, String imageUrl) {
-        this.name = name;
-        this.description = description;
-        this.price = price;
-        this.stock = stock;
-        this.imageUrl = imageUrl;
-    }
+    @Builder.Default
+    private String currency = "TRY";
 
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    private String categoryId;
+    private String categoryName;
 
-    public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
+    private String brand;
+    private String sku;
+    private Double weight;
+    private String color;
+    private String size;
 
-    public String getDescription() { return description; }
-    public void setDescription(String description) { this.description = description; }
+    @Builder.Default
+    private Integer discountPercent = 0;
 
-    public Double getPrice() { return price; }
-    public void setPrice(Double price) { this.price = price; }
+    @Builder.Default
+    private Integer soldCount = 0;
 
-    public Integer getStock() { return stock; }
-    public void setStock(Integer stock) { this.stock = stock; }
+    @Builder.Default
+    private Integer viewCount = 0;
 
-    public String getImageUrl() { return imageUrl; }
-    public void setImageUrl(String imageUrl) { this.imageUrl = imageUrl; }
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "product_images", joinColumns = @JoinColumn(name = "product_id"))
+    @Column(name = "image_url")
+    @Builder.Default
+    private List<String> images = new ArrayList<>();
+
+    @Builder.Default
+    private Double rating = 5.0;
+
+    @Builder.Default
+    private Integer reviewCount = 0;
+
+    @Builder.Default
+    private Integer stock = 10;
+
+    @Builder.Default
+    private Boolean isNew = false;
+
+    @Builder.Default
+    private Boolean isFeatured = false;
+
+    @Builder.Default
+    private Boolean isBestseller = false;
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "product_tags", joinColumns = @JoinColumn(name = "product_id"))
+    @Column(name = "tag")
+    @Builder.Default
+    private Set<String> tags = new HashSet<>();
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "product_specs", joinColumns = @JoinColumn(name = "product_id"))
+    @MapKeyColumn(name = "spec_key")
+    @Column(name = "spec_value")
+    @Builder.Default
+    private Map<String, String> specs = new HashMap<>();
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "product_colors", joinColumns = @JoinColumn(name = "product_id"))
+    @Column(name = "color_option")
+    @Builder.Default
+    private Set<String> colorOptions = new HashSet<>();
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "product_sizes", joinColumns = @JoinColumn(name = "product_id"))
+    @Column(name = "size_option")
+    @Builder.Default
+    private Set<String> sizeOptions = new HashSet<>();
 }

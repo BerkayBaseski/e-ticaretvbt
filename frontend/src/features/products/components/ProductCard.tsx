@@ -49,7 +49,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onQuickView }
       <div className="relative aspect-square w-full overflow-hidden bg-black/40">
         <Link to={`/products/${product.id}`} className="block w-full h-full">
           <img
-            src={product.images[0]}
+            src={product.images && product.images.length > 0 && product.images[0] ? product.images[0] : 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800&auto=format&fit=crop&q=80'}
             alt={product.name}
             className="h-full w-full object-cover object-center group-hover:scale-108 transition-transform duration-700 ease-out"
             loading="lazy"
@@ -117,9 +117,11 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onQuickView }
         <div className="flex items-center gap-1 text-xs">
           <div className="flex items-center text-amber-400">
             <Star className="w-3.5 h-3.5 fill-current" />
-            <span className="ml-1 font-bold text-white">{product.rating}</span>
+            <span className="ml-1 font-bold text-white">
+              {Number(product.rating || 0).toFixed(1)}
+            </span>
           </div>
-          <span className="text-[#CBD5E1]">({product.reviewCount})</span>
+          <span className="text-[11px] text-[#CBD5E1]">({product.reviewCount || 0})</span>
         </div>
 
         {/* Price & Action */}

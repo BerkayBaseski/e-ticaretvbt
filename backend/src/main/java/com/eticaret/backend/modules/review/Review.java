@@ -1,41 +1,38 @@
 package com.eticaret.backend.modules.review;
 
 import jakarta.persistence.*;
+import lombok.*;
+
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "reviews")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Review {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
 
-    private Long productId;
-    private String customerName;
-    private Integer rating;
+    @Column(nullable = false)
+    private String productId;
+
+    private String userId;
+    private String userName;
+    private String userAvatar;
+
+    @Column(nullable = false)
+    private Double rating;
+
+    @Column(length = 2000)
     private String comment;
 
-    public Review() {}
+    @Builder.Default
+    private Integer helpfulCount = 0;
 
-    public Review(Long productId, String customerName, Integer rating, String comment) {
-        this.productId = productId;
-        this.customerName = customerName;
-        this.rating = rating;
-        this.comment = comment;
-    }
-
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
-
-    public Long getProductId() { return productId; }
-    public void setProductId(Long productId) { this.productId = productId; }
-
-    public String getCustomerName() { return customerName; }
-    public void setCustomerName(String customerName) { this.customerName = customerName; }
-
-    public Integer getRating() { return rating; }
-    public void setRating(Integer rating) { this.rating = rating; }
-
-    public String getComment() { return comment; }
-    public void setComment(String comment) { this.comment = comment; }
+    @Builder.Default
+    private String createdAt = LocalDateTime.now().toString();
 }

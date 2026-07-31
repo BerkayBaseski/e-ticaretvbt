@@ -53,26 +53,26 @@ function recalculateCart() {
 
 export const handlers = [
   // 1. AUTH: Register
-  http.post(`${API_BASE_URL}/auth/register`, async ({ request }) => {
+  http.post('*/auth/register', async ({ request }) => {
     const body = (await request.json()) as { email?: string; password?: string; firstName?: string; lastName?: string };
 
-    if (!body.email || !body.password || !body.firstName || !body.lastName) {
+    if (!body.email || !body.password) {
       return HttpResponse.json(
         {
           type: 'https://api.eticaret.example.com/errors/validation-error',
           title: 'Doğrulama Hatası',
           status: 400,
-          detail: 'Tüm zorunlu alanlar doldurulmalıdır (ad, soyad, e-posta, şifre).',
+          detail: 'Tüm zorunlu alanlar doldurulmalıdır.',
         },
-        { status: 400, headers: { 'Content-Type': 'application/problem+json' } }
+        { status: 400 }
       );
     }
 
     const newUser: User = {
       id: `user-${Date.now()}`,
       email: body.email,
-      firstName: body.firstName,
-      lastName: body.lastName,
+      firstName: body.firstName || 'Müşteri',
+      lastName: body.lastName || 'Kullanıcı',
       createdAt: new Date().toISOString(),
     };
 
@@ -86,7 +86,7 @@ export const handlers = [
   }),
 
   // 2. AUTH: Login
-  http.post(`${API_BASE_URL}/auth/login`, async ({ request }) => {
+  http.post('*/auth/login', async ({ request }) => {
     const body = (await request.json()) as { email?: string; password?: string };
 
     if (body.email === 'error@test.com') {

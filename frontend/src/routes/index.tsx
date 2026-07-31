@@ -15,8 +15,8 @@ import { CheckoutPage } from '../features/checkout/CheckoutPage';
 import { OrderConfirmationPage } from '../features/orders/OrderConfirmationPage';
 import { OrdersListPage } from '../features/orders/OrdersListPage';
 import { OrderDetailPage } from '../features/orders/OrderDetailPage';
-import { LoginPage } from '../features/auth/LoginPage';
-import { RegisterPage } from '../features/auth/RegisterPage';
+import { LoginPage } from '../pages/auth/ui/LoginPage';
+import { RegisterPage } from '../pages/auth/ui/RegisterPage';
 import { ProfilePage } from '../features/profile/ProfilePage';
 import { NotificationsPage } from '../pages/notifications/ui/NotificationsPage';
 

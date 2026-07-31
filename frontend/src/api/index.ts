@@ -8,6 +8,10 @@ import type {
   ProductFilterParams,
   ProductsResponse,
   User,
+  Banner,
+  Coupon,
+  CouponValidationResult,
+  AdminStats
 } from './types';
 
 // AUTH APIs
@@ -59,6 +63,31 @@ export const productsApi = {
     const res = await apiClient.get<Product>(`/products/${id}`);
     return res.data;
   },
+
+  getFeaturedProducts: async (): Promise<Product[]> => {
+    const res = await apiClient.get<Product[]>('/products/featured');
+    return res.data;
+  },
+
+  getBestsellers: async (): Promise<Product[]> => {
+    const res = await apiClient.get<Product[]>('/products/bestsellers');
+    return res.data;
+  },
+
+  getNewArrivals: async (): Promise<Product[]> => {
+    const res = await apiClient.get<Product[]>('/products/new-arrivals');
+    return res.data;
+  },
+
+  getRelatedProducts: async (id: string): Promise<Product[]> => {
+    const res = await apiClient.get<Product[]>(`/products/${id}/related`);
+    return res.data;
+  },
+
+  getBrands: async (): Promise<string[]> => {
+    const res = await apiClient.get<string[]>('/products/brands');
+    return res.data;
+  },
 };
 
 // CART APIs
@@ -103,4 +132,38 @@ export const ordersApi = {
     const res = await apiClient.get<Order>(`/orders/${id}`);
     return res.data;
   },
+};
+
+// BANNERS APIs
+export const bannersApi = {
+  getBanners: async (position?: string): Promise<Banner[]> => {
+    const res = await apiClient.get<Banner[]>('/banners', { params: { position } });
+    return res.data;
+  }
+};
+
+// COUPONS APIs
+export const couponsApi = {
+  getActiveCoupons: async (): Promise<Coupon[]> => {
+    const res = await apiClient.get<Coupon[]>('/coupons/active');
+    return res.data;
+  },
+  
+  validateCoupon: async (code: string, orderAmount: number): Promise<CouponValidationResult> => {
+    const res = await apiClient.post<CouponValidationResult>('/coupons/validate', { code, orderAmount });
+    return res.data;
+  }
+};
+
+// ADMIN APIs
+export const adminApi = {
+  getStats: async (): Promise<AdminStats> => {
+    const res = await apiClient.get<AdminStats>('/admin/stats');
+    return res.data;
+  },
+  
+  getRecentOrders: async (): Promise<Order[]> => {
+    const res = await apiClient.get<Order[]>('/admin/recent-orders');
+    return res.data;
+  }
 };

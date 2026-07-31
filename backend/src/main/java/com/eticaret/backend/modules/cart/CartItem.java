@@ -1,31 +1,30 @@
 package com.eticaret.backend.modules.cart;
 
+import com.eticaret.backend.modules.product.Product;
 import jakarta.persistence.*;
+import lombok.*;
 
 @Entity
 @Table(name = "cart_items")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class CartItem {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
 
-    private Long productId;
+    private String userId;
+
+    private String productId;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "product_ref_id")
+    private Product product;
+
     private Integer quantity;
-
-    public CartItem() {}
-
-    public CartItem(Long productId, Integer quantity) {
-        this.productId = productId;
-        this.quantity = quantity;
-    }
-
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
-
-    public Long getProductId() { return productId; }
-    public void setProductId(Long productId) { this.productId = productId; }
-
-    public Integer getQuantity() { return quantity; }
-    public void setQuantity(Integer quantity) { this.quantity = quantity; }
+    private Double unitPrice;
+    private Double totalPrice;
 }

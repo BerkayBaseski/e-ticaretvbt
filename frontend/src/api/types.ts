@@ -29,7 +29,9 @@ export interface Category {
   description: string;
   icon?: string;
   image?: string;
+  parentId?: string;
   itemCount: number;
+  sortOrder?: number;
 }
 
 export interface Product {
@@ -42,14 +44,25 @@ export interface Product {
   currency: string;
   categoryId: string;
   categoryName: string;
+  brand?: string;
+  sku?: string;
+  weight?: number;
+  color?: string;
+  size?: string;
+  discountPercent?: number;
+  soldCount?: number;
+  viewCount?: number;
   images: string[];
   rating: number;
   reviewCount: number;
   stock: number;
   isNew?: boolean;
   isFeatured?: boolean;
+  isBestseller?: boolean;
   tags?: string[];
   specs?: Record<string, string>;
+  colorOptions?: string[];
+  sizeOptions?: string[];
 }
 
 export interface ProductsResponse {
@@ -58,6 +71,60 @@ export interface ProductsResponse {
   totalPages: number;
   page: number;
   size: number;
+}
+
+export interface Banner {
+  id: string;
+  title: string;
+  subtitle?: string;
+  description?: string;
+  imageUrl: string;
+  linkUrl?: string;
+  buttonText?: string;
+  badgeText?: string;
+  gradientFrom?: string;
+  gradientTo?: string;
+  position: 'HERO' | 'SIDEBAR' | 'CATEGORY' | 'PROMOTION';
+  isActive: boolean;
+  sortOrder: number;
+}
+
+export interface Coupon {
+  id: string;
+  code: string;
+  title: string;
+  description?: string;
+  discountType: 'PERCENTAGE' | 'FIXED' | 'FREE_SHIPPING';
+  discountValue: number;
+  minOrderAmount: number;
+  maxDiscountAmount?: number;
+  maxUsageCount: number;
+  usedCount: number;
+  validFrom?: string;
+  validUntil?: string;
+  isActive: boolean;
+  applicableCategory?: string;
+}
+
+export interface CouponValidationResult {
+  valid: boolean;
+  message: string;
+  discountAmount?: number;
+  couponCode?: string;
+  couponTitle?: string;
+  discountType?: string;
+}
+
+export interface AdminStats {
+  totalProducts: number;
+  totalOrders: number;
+  totalUsers: number;
+  totalCategories: number;
+  totalReviews: number;
+  totalRevenue: number;
+  pendingOrders: number;
+  processingOrders: number;
+  deliveredOrders: number;
 }
 
 export interface CartItem {
@@ -76,6 +143,7 @@ export interface Cart {
   discount: number;
   total: number;
   totalItems: number;
+  appliedCoupon?: CouponValidationResult;
 }
 
 export type OrderStatus = 'pending' | 'processing' | 'shipped' | 'delivered' | 'cancelled';
@@ -135,7 +203,8 @@ export interface ProductFilterParams {
   size?: number;
   category?: string;
   q?: string;
+  brand?: string;
   minPrice?: number;
   maxPrice?: number;
-  sort?: 'featured' | 'price_asc' | 'price_desc' | 'rating' | 'newest';
+  sort?: 'featured' | 'price_asc' | 'price_desc' | 'rating' | 'newest' | 'bestseller' | 'most_reviewed';
 }

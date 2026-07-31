@@ -18,6 +18,7 @@ export const ProductDetailPage: React.FC = () => {
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [quantity, setQuantity] = useState(1);
   const [isAdded, setIsAdded] = useState(false);
+  const [activeTab, setActiveTab] = useState<'description' | 'reviews'>('description');
 
   const { addToCart } = useCartStore();
   const { toggleWishlist, isInWishlist } = useWishlistStore();
@@ -289,6 +290,114 @@ export const ProductDetailPage: React.FC = () => {
               </div>
             </div>
           </div>
+        </div>
+      </div>
+
+      <div className="mt-12">
+        <div className="flex items-center gap-8 border-b border-[#1F2937]">
+          <button
+            onClick={() => setActiveTab('description')}
+            className={`pb-4 text-sm font-bold uppercase tracking-wider transition-colors relative ${
+              activeTab === 'description' ? 'text-[#3B82F6]' : 'text-gray-400 hover:text-white'
+            }`}
+          >
+            Açıklama
+            {activeTab === 'description' && (
+              <span className="absolute bottom-[-1px] left-0 w-full h-[2px] bg-[#3B82F6]" />
+            )}
+          </button>
+          <button
+            onClick={() => setActiveTab('reviews')}
+            className={`pb-4 text-sm font-bold uppercase tracking-wider transition-colors relative ${
+              activeTab === 'reviews' ? 'text-[#3B82F6]' : 'text-gray-400 hover:text-white'
+            }`}
+          >
+            Değerlendirmeler ({product.reviewCount})
+            {activeTab === 'reviews' && (
+              <span className="absolute bottom-[-1px] left-0 w-full h-[2px] bg-[#3B82F6]" />
+            )}
+          </button>
+        </div>
+
+        <div className="pt-8">
+          {activeTab === 'description' && (
+            <div className="text-gray-300 leading-relaxed space-y-4">
+              <p>{product.description}</p>
+              <p>
+                Bu ürün yüksek standartlarda üretilmiş olup, 2 yıl distribütör garantisi altındadır.
+                Kutu içeriğinde gerekli tüm aksesuarlar yer almaktadır. Siparişleriniz aynı gün içerisinde
+                kargoya teslim edilir.
+              </p>
+            </div>
+          )}
+
+          {activeTab === 'reviews' && (
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+              <div className="lg:col-span-1 space-y-6">
+                <div className="text-center p-6 bg-[#111827] border border-[#1F2937] rounded-2xl">
+                  <span className="text-5xl font-black text-white">{product.rating.toFixed(1)}</span>
+                  <div className="flex justify-center text-amber-400 mt-2 mb-1">
+                    {Array.from({ length: 5 }).map((_, i) => (
+                      <Star key={i} className={`w-5 h-5 ${i < Math.floor(product.rating) ? 'fill-current' : 'opacity-30'}`} />
+                    ))}
+                  </div>
+                  <span className="text-sm text-gray-400">{product.reviewCount} Değerlendirme</span>
+                </div>
+
+                <div className="space-y-3">
+                  {[5, 4, 3, 2, 1].map((star) => (
+                    <div key={star} className="flex items-center gap-3 text-sm">
+                      <span className="w-12 text-gray-400 font-medium flex items-center justify-end gap-1">
+                        {star} <Star className="w-3 h-3 fill-current text-gray-500" />
+                      </span>
+                      <div className="flex-1 h-2.5 bg-[#1F2937] rounded-full overflow-hidden">
+                        <div
+                          className="h-full bg-amber-400 rounded-full"
+                          style={{ width: `${star === 5 ? 75 : star === 4 ? 15 : star === 3 ? 5 : 2}%` }}
+                        />
+                      </div>
+                      <span className="w-8 text-xs text-gray-500 text-right">
+                        {star === 5 ? '75%' : star === 4 ? '15%' : star === 3 ? '5%' : '2%'}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+                <Button className="w-full">Yorum Yap</Button>
+              </div>
+
+              <div className="lg:col-span-2 space-y-6">
+                {[1, 2, 3].map((_, i) => (
+                  <div key={i} className="p-6 bg-[#111827] border border-[#1F2937] rounded-2xl space-y-3">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 rounded-full bg-[#1F2937] flex items-center justify-center text-gray-400 font-bold">
+                          K{i}
+                        </div>
+                        <div>
+                          <p className="text-sm font-semibold text-white">Kullanıcı {i + 1}</p>
+                          <div className="flex text-amber-400">
+                            {Array.from({ length: 5 }).map((_, j) => (
+                              <Star key={j} className="w-3 h-3 fill-current" />
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                      <span className="text-xs text-gray-500">2 gün önce</span>
+                    </div>
+                    <p className="text-gray-300 text-sm leading-relaxed">
+                      Ürün gayet başarılı, paketleme çok özenliydi. Kargolama süreci de oldukça hızlıydı.
+                      İhtiyacı olan herkese kesinlikle tavsiye ederim. Fiyat/performans olarak mükemmel.
+                    </p>
+                    <div className="flex gap-2 mt-4">
+                      <div className="w-16 h-16 rounded-lg bg-[#1F2937] overflow-hidden">
+                        <img src={product.images[0]} alt="Review img" className="w-full h-full object-cover opacity-60" />
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       </div>
 

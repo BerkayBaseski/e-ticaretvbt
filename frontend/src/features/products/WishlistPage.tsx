@@ -74,7 +74,7 @@ export const WishlistPage: React.FC = () => {
             variant="primary"
             size="sm"
             onClick={handleAddAllToCart}
-            className="text-xs gap-1.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 shadow-lg shadow-blue-500/25"
+            className="text-xs gap-1.5 bg-[#2563EB] hover:bg-blue-600 shadow-lg shadow-blue-500/25"
           >
             <ShoppingBag className="w-4 h-4" /> Tümünü Sepete Ekle
           </Button>

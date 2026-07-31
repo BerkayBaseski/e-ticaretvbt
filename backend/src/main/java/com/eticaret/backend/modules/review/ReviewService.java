@@ -1,9 +1,13 @@
 package com.eticaret.backend.modules.review;
 
+import com.eticaret.backend.modules.product.Product;
+import com.eticaret.backend.modules.product.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class ReviewService {
@@ -11,19 +15,36 @@ public class ReviewService {
     @Autowired
     private ReviewRepository reviewRepository;
 
-    public List<Review> getAllReviews() {
-        return reviewRepository.findAll();
+    @Autowired
+    private ProductRepository productRepository;
+
+    public List<Review> getReviewsByProductId(String productId) {
+        return reviewRepository.findByProductIdOrderByCreatedAtDesc(productId);
     }
 
-    public List<Review> getReviewsByProductId(Long productId) {
-        return reviewRepository.findByProductId(productId);
-    }
+    public Review addReview(String productId, String userId, String userName, Double rating, String comment) {
+        Review review = Review.builder()
+                .id("rev-" + UUID.randomUUID().toString().substring(0, 8))
+                .productId(productId)
+                .userId(userId != null ? userId : "user-101")
+                .userName(userName != null ? userName : "Müşteri")
+                .rating(rating != null ? rating : 5.0)
+                .comment(comment)
+                .createdAt(LocalDateTime.now().toString())
+                .helpfulCount(0)
+                .build();
 
-    public Review createReview(Review review) {
-        return reviewRepository.save(review);
-    }
+        Review saved = reviewRepository.save(review);
 
-    public void deleteReview(Long id) {
-        reviewRepository.deleteById(id);
+        // Recalculate Product average rating and review count
+        List<Review> allReviews = reviewRepository.findByProductIdOrderByCreatedAtDesc(productId);
+        productRepository.findById(productId).ifPresent(p -> {
+            p.setReviewCount(allReviews.size());
+            double avgRating = allReviews.stream().mapToDouble(Review::getRating).average().orElse(5.0);
+            p.setRating(Math.round(avgRating * 10.0) / 10.0);
+            productRepository.save(p);
+        });
+
+        return saved;
     }
 }

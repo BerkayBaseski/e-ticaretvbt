@@ -1,42 +1,54 @@
 package com.eticaret.backend.modules.order;
 
 import jakarta.persistence.*;
+import lombok.*;
+
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "orders")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Order {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
 
-    private String customerName;
-    private Double totalPrice;
-    private String status;
-    private LocalDateTime orderDate;
+    private String userId;
 
-    public Order() {}
+    @Column(nullable = false, unique = true)
+    private String orderNumber;
 
-    public Order(String customerName, Double totalPrice, String status) {
-        this.customerName = customerName;
-        this.totalPrice = totalPrice;
-        this.status = status;
-        this.orderDate = LocalDateTime.now();
-    }
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "order_items", joinColumns = @JoinColumn(name = "order_id"))
+    @Builder.Default
+    private List<OrderItem> items = new ArrayList<>();
 
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    @Builder.Default
+    private String status = "processing";
 
-    public String getCustomerName() { return customerName; }
-    public void setCustomerName(String customerName) { this.customerName = customerName; }
+    @Embedded
+    private ShippingAddress shippingAddress;
 
-    public Double getTotalPrice() { return totalPrice; }
-    public void setTotalPrice(Double totalPrice) { this.totalPrice = totalPrice; }
+    @Embedded
+    private PaymentDetails paymentDetails;
 
-    public String getStatus() { return status; }
-    public void setStatus(String status) { this.status = status; }
+    private Double subtotal;
+    private Double shippingFee;
+    private Double discount;
+    private Double totalAmount;
 
-    public LocalDateTime getOrderDate() { return orderDate; }
-    public void setOrderDate(LocalDateTime orderDate) { this.orderDate = orderDate; }
+    @Builder.Default
+    private String createdAt = LocalDateTime.now().toString();
+
+    @Builder.Default
+    private String updatedAt = LocalDateTime.now().toString();
+
+    private String estimatedDelivery;
+    private String trackingNumber;
 }
