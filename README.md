@@ -1,10 +1,12 @@
-# 🛒 E-Commerce Platform | 2026 Team Project
+# 🛒 NovaStore | 2026 Team Project
 
-> Modern web teknolojileri kullanılarak geliştirilen, Java Spring Boot ve React tabanlı tam yığın (Full Stack) bir e-ticaret uygulaması.
+> Java Spring Boot ve React kullanılarak geliştirilen, modern ve ölçeklenebilir bir full-stack e-ticaret uygulaması.
 
-Bu proje, üniversite ekip çalışması kapsamında geliştirilmiş olup backend ve frontend ekiplerinin eş zamanlı ilerlediği gerçek bir geliştirme sürecini temel almaktadır. Uygulama; kullanıcı yönetimi, ürün keşfi, sepet işlemleri, güvenli kimlik doğrulama ve sipariş süreçlerini RESTful API mimarisi üzerinden tek bir platformda bir araya getirir.
+NovaStore, üniversite ekip çalışması kapsamında geliştirilen bir e-ticaret platformudur. Projede backend ve frontend ekipleri paralel olarak çalışarak gerçek bir yazılım geliştirme sürecini deneyimlemeyi amaçlamıştır.
 
-Frontend ve backend birbirinden bağımsız geliştirilmiş, tüm iletişim HTTP tabanlı REST servisleri üzerinden sağlanmıştır. Geliştirme süreci boyunca GitHub üzerinden branch, Pull Request ve code review akışı takip edilmiştir.
+Uygulama; kullanıcı yönetimi, ürün keşfi, sepet işlemleri, kimlik doğrulama ve sipariş süreçlerini RESTful API mimarisi üzerinden bir araya getirir.
+
+Backend ve frontend birbirinden bağımsız geliştirilmiş ve HTTP tabanlı REST API'ler aracılığıyla iletişim sağlanmıştır. Geliştirme sürecinde GitHub üzerinden branch, Pull Request ve code review süreçleri kullanılarak ekip çalışmasına dayalı bir geliştirme akışı uygulanmıştır.
 
 ---
 
