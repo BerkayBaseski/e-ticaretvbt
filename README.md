@@ -1,4 +1,4 @@
-# 🛒 NovaStore | 2026 Team Project
+# 🛒 NovaStore | 2026 Team Project 
 
 > Java Spring Boot ve React kullanılarak geliştirilen, modern ve ölçeklenebilir bir full-stack e-ticaret uygulaması.
 
